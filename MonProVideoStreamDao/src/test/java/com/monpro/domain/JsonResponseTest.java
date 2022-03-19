@@ -1,8 +1,8 @@
-package com.monpro.service.domain;
+package com.monpro.domain;
 
 import org.junit.jupiter.api.Test;
 
-import static com.monpro.service.domain.JsonResponse.*;
+import static com.monpro.domain.JsonResponse.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JsonResponseTest {
