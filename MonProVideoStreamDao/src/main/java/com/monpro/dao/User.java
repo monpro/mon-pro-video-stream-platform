@@ -9,7 +9,7 @@ import java.util.Date;
 @Setter
 public class User {
 
-  private String id;
+  private Long id;
 
   private String phone;
 

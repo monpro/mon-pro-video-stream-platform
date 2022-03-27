@@ -1,4 +1,5 @@
 package com.monpro.service.util;
+import com.monpro.domain.exception.ConditionException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -6,7 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.util.ResourceUtils;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,6 +18,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Properties;
@@ -46,16 +50,36 @@ public class RSAUtil {
     }
     return properties;
   }
-  public static RSAPublicKey getPublicKey() throws Exception {
+  public static RSAPublicKey getPublicKey(){
     byte[] decoded = Base64.decodeBase64(PUBLIC_KEY);
-    return (RSAPublicKey) KeyFactory.getInstance(RSA)
-        .generatePublic(new X509EncodedKeySpec(decoded));
+    RSAPublicKey publicKey = null;
+    try {
+      publicKey = (RSAPublicKey) KeyFactory.getInstance(RSA)
+          .generatePublic(new X509EncodedKeySpec(decoded));
+    } catch (final InvalidKeySpecException | NoSuchAlgorithmException e) {
+      log.error("fail to get RSA instance when generating public key:", e);
+    }
+    return publicKey;
   }
 
-  public static RSAPrivateKey getPrivateKey() throws Exception {
+  public static String getPublicKeyString() {
+    return PUBLIC_KEY;
+  }
+
+  public static String getPrivateKeyString() {
+    return PRIVATE_KEY;
+  }
+
+  public static RSAPrivateKey getPrivateKey(){
     byte[] decoded = Base64.decodeBase64(PRIVATE_KEY);
-    return (RSAPrivateKey) KeyFactory.getInstance(RSA)
-        .generatePrivate(new PKCS8EncodedKeySpec(decoded));
+    RSAPrivateKey privateKey = null;
+    try {
+      privateKey = (RSAPrivateKey) KeyFactory.getInstance(RSA)
+          .generatePrivate(new PKCS8EncodedKeySpec(decoded));
+    } catch (final InvalidKeySpecException | NoSuchAlgorithmException e) {
+      log.error("fail to get RSA instance when generating private key:", e);
+    }
+    return privateKey;
   }
 
   public static RSAKey generateKeyPair() throws NoSuchAlgorithmException {
@@ -78,19 +102,30 @@ public class RSAUtil {
     return Base64.encodeBase64String(cipher.doFinal(source.getBytes(StandardCharsets.UTF_8)));
   }
 
-  public static Cipher getCipher() throws Exception {
+  public static Cipher getCipher() {
     byte[] decoded = Base64.decodeBase64(PRIVATE_KEY);
-    RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) KeyFactory.getInstance(RSA)
-        .generatePrivate(new PKCS8EncodedKeySpec(decoded));
-    Cipher cipher = Cipher.getInstance(RSA);
-    cipher.init(2, rsaPrivateKey);
+    Cipher cipher;
+    try {
+      RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) KeyFactory.getInstance(RSA)
+          .generatePrivate(new PKCS8EncodedKeySpec(decoded));
+      cipher = Cipher.getInstance(RSA);
+      cipher.init(2, rsaPrivateKey);
+    } catch (final Exception e) {
+      log.error("Cipher failed to get RSA Instance", e);
+      throw new ConditionException("Cipher failed to get RSA Instance");
+    }
     return cipher;
   }
 
-  public static String decrypt(final String text) throws Exception {
+  public static String decrypt(final String text) {
     Cipher cipher = getCipher();
     byte[] inputByte = Base64.decodeBase64(text.getBytes(StandardCharsets.UTF_8));
-    return new String(cipher.doFinal(inputByte));
+    try {
+      return new String(cipher.doFinal(inputByte));
+    } catch (final IllegalBlockSizeException | BadPaddingException e) {
+      log.error("Cipher failed to doFinal", e);
+      throw new ConditionException("Cipher failed to doFinal");
+    }
   }
 
   @Getter
