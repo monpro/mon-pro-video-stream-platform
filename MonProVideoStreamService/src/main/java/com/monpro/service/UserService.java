@@ -74,4 +74,11 @@ public class UserService {
     }
     return TokenUtil.getToken(dbUser.getId());
   }
+
+  public User getUserData(final Long userId) {
+    final UserInfo userInfo = userDao.getUserInfoByUserId(userId);
+    final User user = userDao.getUserById(userId);
+    user.setUserInfo(userInfo);
+    return user;
+  }
 }

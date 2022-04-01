@@ -21,10 +21,12 @@ public class UserApi {
   @Autowired
   private UserSupport userSupport;
 
-//  @GetMapping("/users")
-//  public JsonResponse<User> getUserInfo() {
-//    final Long currentUserId = userSupport.getCurrentUserId();
-//  }
+  @GetMapping("/users")
+  public JsonResponse<User> getUserData() {
+    final Long currentUserId = userSupport.getCurrentUserId();
+    final User user = userService.getUserData(currentUserId);
+    return new JsonResponse<>(user);
+  }
 
   @GetMapping("/rsa-pks")
   public JsonResponse<String> getRsaPublicKey() {
@@ -37,7 +39,7 @@ public class UserApi {
     return JsonResponse.success();
   }
 
-  @PostMapping("/user-tokens")
+  @PostMapping("/login")
   public JsonResponse<String> login(@RequestBody final User user) {
     return new JsonResponse<>(userService.login(user));
   }

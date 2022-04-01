@@ -39,6 +39,10 @@ public class RSAUtil {
 
   private static final String RSA = "RSA";
 
+  public static void main(String[] args) throws Exception {
+    System.out.println(RSAUtil.encrypt("123456"));
+  }
+
   private static Properties fetchProperties(){
     Properties properties = new Properties();
     try {
