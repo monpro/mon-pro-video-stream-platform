@@ -4,7 +4,7 @@ GET http://localhost:8080/query?id=1
 > {%
 client.test("Test query get endpoint", function (){
     client.log("Test query get endpoint");
+    client.log(response.body)
     client.assert(response.status === 200, "response status is 200");
-    client.assert(response.body === "1test", "test demo endpoint return 1test");
 });
 %}

@@ -1,6 +1,7 @@
 package com.monpro.api;
 
 
+import com.monpro.api.support.UserSupport;
 import com.monpro.dao.User;
 import com.monpro.domain.JsonResponse;
 import com.monpro.service.UserService;
@@ -17,6 +18,14 @@ public class UserApi {
   @Autowired
   private UserService userService;
 
+  @Autowired
+  private UserSupport userSupport;
+
+//  @GetMapping("/users")
+//  public JsonResponse<User> getUserInfo() {
+//    final Long currentUserId = userSupport.getCurrentUserId();
+//  }
+
   @GetMapping("/rsa-pks")
   public JsonResponse<String> getRsaPublicKey() {
     return new JsonResponse<>(RSAUtil.getPublicKeyString());
@@ -26,5 +35,10 @@ public class UserApi {
   public JsonResponse<String> addUser(@RequestBody final User user) {
     userService.addUser(user);
     return JsonResponse.success();
+  }
+
+  @PostMapping("/user-tokens")
+  public JsonResponse<String> login(@RequestBody final User user) {
+    return new JsonResponse<>(userService.login(user));
   }
 }

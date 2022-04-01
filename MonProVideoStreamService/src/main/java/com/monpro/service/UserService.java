@@ -7,6 +7,7 @@ import com.monpro.domain.constant.UserConstant;
 import com.monpro.domain.exception.ConditionException;
 import com.monpro.service.util.MD5Util;
 import com.monpro.service.util.RSAUtil;
+import com.monpro.service.util.TokenUtil;
 import com.mysql.cj.util.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -52,5 +53,25 @@ public class UserService {
 
   public User getUserByPhone(final String phone) {
     return userDao.getUserByPhone(phone);
+  }
+
+  public String login(final User user) {
+    final String phone = user.getPhone();
+    if (StringUtils.isNullOrEmpty(phone)) {
+      throw new ConditionException("user's phone cannot be empty");
+    }
+    final User dbUser = this.getUserByPhone(phone);
+    if (dbUser == null) {
+      throw new ConditionException("user not existed");
+    }
+    final String password = user.getPassword();
+
+    final String rawPassword = RSAUtil.decrypt(password);
+    final String salt = dbUser.getSalt();
+    final String md5Password = MD5Util.sign(rawPassword, salt, "UTF-8");
+    if (!md5Password.equals(dbUser.getPassword())) {
+      throw new ConditionException("password is wrong");
+    }
+    return TokenUtil.getToken(dbUser.getId());
   }
 }
