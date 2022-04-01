@@ -52,12 +52,13 @@ public class RSAUtil {
   }
   public static RSAPublicKey getPublicKey(){
     byte[] decoded = Base64.decodeBase64(PUBLIC_KEY);
-    RSAPublicKey publicKey = null;
+    RSAPublicKey publicKey;
     try {
       publicKey = (RSAPublicKey) KeyFactory.getInstance(RSA)
           .generatePublic(new X509EncodedKeySpec(decoded));
     } catch (final InvalidKeySpecException | NoSuchAlgorithmException e) {
       log.error("fail to get RSA instance when generating public key:", e);
+      throw new ConditionException("fail to get RSA instance when generating public key");
     }
     return publicKey;
   }
@@ -72,12 +73,13 @@ public class RSAUtil {
 
   public static RSAPrivateKey getPrivateKey(){
     byte[] decoded = Base64.decodeBase64(PRIVATE_KEY);
-    RSAPrivateKey privateKey = null;
+    RSAPrivateKey privateKey;
     try {
       privateKey = (RSAPrivateKey) KeyFactory.getInstance(RSA)
           .generatePrivate(new PKCS8EncodedKeySpec(decoded));
     } catch (final InvalidKeySpecException | NoSuchAlgorithmException e) {
       log.error("fail to get RSA instance when generating private key:", e);
+      throw new ConditionException("fail to get RSA instance when generating private key");
     }
     return privateKey;
   }
