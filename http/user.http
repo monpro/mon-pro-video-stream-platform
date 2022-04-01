@@ -1,0 +1,48 @@
+
+### register users comment for now cuz it only used to bootstrap user and token
+
+#POST http://localhost:8080/users
+#Content-Type: application/json
+#
+#{
+#  "phone": "123456",
+#  "password": "hgZjbfZPlZvCfYLOQ2fM1y2WM/eOhdkwRP8P8ox2xczylvPaRAd/NbJfACLWxXOtoMYwQE2+BaP3A6//bu3bRD/W1VTPTg5XdSsiP5zFvsie4qfZGzYS//x3W1/Fd8AN6k9Bfzt7iuGDNbXDYxSzJ09kuiP7THSjINdSt/WM6jU="
+#}
+#> {%
+#client.test("Test user register", function (){
+#    client.log("Test user register");
+#});
+#%}
+
+###
+
+
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "phone": "123456",
+  "password": "hgZjbfZPlZvCfYLOQ2fM1y2WM/eOhdkwRP8P8ox2xczylvPaRAd/NbJfACLWxXOtoMYwQE2+BaP3A6//bu3bRD/W1VTPTg5XdSsiP5zFvsie4qfZGzYS//x3W1/Fd8AN6k9Bfzt7iuGDNbXDYxSzJ09kuiP7THSjINdSt/WM6jU="
+}
+
+> {%
+client.test("Test user login", function (){
+    client.log("Test user login");
+    client.global.set("token", response.body.data)
+    client.assert(response.body.msg === "Success", "login successfully");
+    // token for testing get users: response.body.data
+});
+%}
+
+###
+GET http://localhost:8080/users
+Accept: application/json
+// this token is fetched on the last test
+token: {{token}}
+
+> {%
+client.test("Test get user data", function (){
+    client.log("Test get user data");
+    client.assert(response.body.msg === "Success", "get user data successfully");
+});
+%}
