@@ -65,7 +65,6 @@ public class UserService {
       throw new ConditionException("user not existed");
     }
     final String password = user.getPassword();
-
     final String rawPassword = RSAUtil.decrypt(password);
     final String salt = dbUser.getSalt();
     final String md5Password = MD5Util.sign(rawPassword, salt, "UTF-8");
@@ -80,5 +79,20 @@ public class UserService {
     final User user = userDao.getUserById(userId);
     user.setUserInfo(userInfo);
     return user;
+  }
+
+  public void updateUser(final User user) {
+    final Long id = user.getId();
+    final User dbUser = userDao.getUserById(id);
+    if (dbUser == null) {
+      throw new ConditionException("user not existed");
+    }
+    if (!StringUtils.isNullOrEmpty(user.getPassword())) {
+      final String rawPassword = RSAUtil.decrypt(user.getPassword());
+      final String md5Password = MD5Util.sign(rawPassword, dbUser.getSalt(), "UTF-8");
+      user.setPassword(md5Password);
+    }
+    user.setUpdateTime(new Date());
+    userDao.updateUsers(user);
   }
 }

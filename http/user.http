@@ -46,3 +46,20 @@ client.test("Test get user data", function (){
     client.assert(response.body.msg === "Success", "get user data successfully");
 });
 %}
+
+###
+PUT http://localhost:8080/users
+Accept: application/json
+// this token is fetched on the last test
+token: {{token}}
+
+{
+  "email": "monproshen@gmail.com",
+}
+
+> {%
+client.test("Test update user data", function (){
+    client.log("Test update user data");
+    client.assert(response.body.msg === "Success", "get user data successfully");
+});
+%}

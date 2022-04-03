@@ -7,10 +7,7 @@ import com.monpro.domain.JsonResponse;
 import com.monpro.service.UserService;
 import com.monpro.service.util.RSAUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserApi {
@@ -42,5 +39,13 @@ public class UserApi {
   @PostMapping("/login")
   public JsonResponse<String> login(@RequestBody final User user) {
     return new JsonResponse<>(userService.login(user));
+  }
+
+  @PutMapping("/users")
+  public JsonResponse<String> updateUsers(@RequestBody final User user) {
+    final Long currentUserId = userSupport.getCurrentUserId();
+    user.setId(currentUserId);
+    userService.updateUser(user);
+    return JsonResponse.success();
   }
 }
