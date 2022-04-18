@@ -95,4 +95,8 @@ public class UserService {
     user.setUpdateTime(new Date());
     userDao.updateUsers(user);
   }
+
+  public User getUserById(final Long followingId) {
+    return userDao.getUserById(followingId);
+  }
 }

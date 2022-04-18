@@ -12,4 +12,6 @@ public class UserConstant {
 
   public static final String DEFAULT_NICK = "mate";
 
+  public static final String DEFAULT_USER_FOLLOWING_GROUP_TYPE = "2";
+
 }

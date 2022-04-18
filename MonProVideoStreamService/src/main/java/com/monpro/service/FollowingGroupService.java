@@ -15,7 +15,7 @@ public class FollowingGroupService {
     return followingGroupDao.getByType(type);
   }
 
-  public FollowingGroup getById(final String id) {
+  public FollowingGroup getById(final Long id) {
     return followingGroupDao.getById(id);
   }
 }
