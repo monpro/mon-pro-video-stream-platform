@@ -14,4 +14,6 @@ public class UserConstant {
 
   public static final String DEFAULT_USER_FOLLOWING_GROUP_TYPE = "2";
 
+  public static final String USER_FOLLOWING_GROUP_ALL_NAME = "All Following";
+
 }

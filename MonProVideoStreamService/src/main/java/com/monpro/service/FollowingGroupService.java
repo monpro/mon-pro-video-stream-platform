@@ -5,6 +5,8 @@ import com.monpro.domain.FollowingGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FollowingGroupService {
 
@@ -17,5 +19,9 @@ public class FollowingGroupService {
 
   public FollowingGroup getById(final Long id) {
     return followingGroupDao.getById(id);
+  }
+
+  public List<FollowingGroup> getByUserId(final Long userId) {
+    return followingGroupDao.getByUserId(userId);
   }
 }
