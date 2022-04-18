@@ -1,6 +1,6 @@
 package com.monpro.service;
 
-import com.monpro.dao.User;
+import com.monpro.domain.User;
 import com.monpro.dao.UserDao;
 import com.monpro.domain.exception.ConditionException;
 import org.junit.jupiter.api.BeforeAll;

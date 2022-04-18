@@ -1,4 +1,4 @@
-package com.monpro.dao;
+package com.monpro.domain;
 
 import lombok.Getter;
 import lombok.Setter;

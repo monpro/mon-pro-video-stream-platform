@@ -1,5 +1,7 @@
 package com.monpro.dao;
 
+import com.monpro.domain.User;
+import com.monpro.domain.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

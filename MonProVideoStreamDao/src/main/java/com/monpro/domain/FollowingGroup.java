@@ -1,4 +1,4 @@
-package com.monpro.dao;
+package com.monpro.domain;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,21 +7,15 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class UserInfo {
+public class FollowingGroup {
 
   private Long id;
 
   private Long userId;
 
-  private String nick;
+  private String name;
 
-  private String avatar;
-
-  private String sign;
-
-  private String gender;
-
-  private String birth;
+  private String type;
 
   private Date createTime;
 

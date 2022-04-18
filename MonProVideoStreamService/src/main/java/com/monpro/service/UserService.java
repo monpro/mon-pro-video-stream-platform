@@ -1,8 +1,8 @@
 package com.monpro.service;
 
-import com.monpro.dao.User;
+import com.monpro.domain.User;
 import com.monpro.dao.UserDao;
-import com.monpro.dao.UserInfo;
+import com.monpro.domain.UserInfo;
 import com.monpro.domain.constant.UserConstant;
 import com.monpro.domain.exception.ConditionException;
 import com.monpro.service.util.MD5Util;

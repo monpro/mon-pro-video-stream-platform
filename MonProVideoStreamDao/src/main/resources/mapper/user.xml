@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.monpro.dao.UserDao">
-    <select id="getUserByPhone" parameterType="java.lang.String" resultType="com.monpro.dao.User">
+    <select id="getUserByPhone" parameterType="java.lang.String" resultType="com.monpro.domain.User">
         select
             *
         from
@@ -10,7 +10,7 @@
             phone = #{phone}
     </select>
 
-    <insert id="addUser" parameterType="com.monpro.dao.User" useGeneratedKeys="true" keyProperty="id">
+    <insert id="addUser" parameterType="com.monpro.domain.User" useGeneratedKeys="true" keyProperty="id">
         insert into
             t_user(
                phone,
@@ -26,7 +26,7 @@
                 #{createTime})
     </insert>
 
-    <insert id="addUserInfo" parameterType="com.monpro.dao.UserInfo">
+    <insert id="addUserInfo" parameterType="com.monpro.domain.UserInfo">
         insert into
             t_user_info(
             userId,
@@ -45,7 +45,7 @@
          #{birth},
          #{createTime})
     </insert>
-    <select id="getUserById" parameterType="java.lang.Long" resultType="com.monpro.dao.User">
+    <select id="getUserById" parameterType="java.lang.Long" resultType="com.monpro.domain.User">
         select
             *
         from
@@ -53,7 +53,7 @@
         where
             id = #{id}
     </select>
-    <select id="getUserInfoByUserId" parameterType="java.lang.Long" resultType="com.monpro.dao.UserInfo">
+    <select id="getUserInfoByUserId" parameterType="java.lang.Long" resultType="com.monpro.domain.UserInfo">
         select
             *
         from
@@ -62,7 +62,7 @@
             userId = #{userId}
     </select>
 
-    <update id="updateUsers" parameterType="com.monpro.dao.User">
+    <update id="updateUsers" parameterType="com.monpro.domain.User">
         update
             t_user
         set

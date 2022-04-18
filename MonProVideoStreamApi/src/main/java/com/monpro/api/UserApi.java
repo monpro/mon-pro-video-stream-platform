@@ -2,7 +2,7 @@ package com.monpro.api;
 
 
 import com.monpro.api.support.UserSupport;
-import com.monpro.dao.User;
+import com.monpro.domain.User;
 import com.monpro.domain.JsonResponse;
 import com.monpro.service.UserService;
 import com.monpro.service.util.RSAUtil;
