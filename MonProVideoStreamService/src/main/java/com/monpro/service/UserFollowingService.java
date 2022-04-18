@@ -6,6 +6,7 @@ import com.monpro.domain.User;
 import com.monpro.domain.UserFollowing;
 import com.monpro.domain.constant.UserConstant;
 import com.monpro.domain.exception.ConditionException;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 
 @Service
+@AllArgsConstructor
 public class UserFollowingService {
 
   @Autowired
