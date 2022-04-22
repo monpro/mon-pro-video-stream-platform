@@ -30,4 +30,12 @@
         where
             userId = #{userId}
     </select>
+    <select id="getUserFans" parameterType="java.lang.Long" resultType="com.monpro.domain.UserFollowing">
+        select
+            *
+        from
+            t_user_following
+        where
+            followingId = #{userId}
+    </select>
 </mapper>

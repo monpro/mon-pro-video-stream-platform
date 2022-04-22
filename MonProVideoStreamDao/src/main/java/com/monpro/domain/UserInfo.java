@@ -27,4 +27,6 @@ public class UserInfo {
 
   private Date updateTime;
 
+  private Boolean followed;
+
 }

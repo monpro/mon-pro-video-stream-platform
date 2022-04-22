@@ -94,4 +94,35 @@ public class UserFollowingService {
     }
     return result;
   }
+
+  public List<UserFollowing> getUserFans(final Long userId) {
+    final List<UserFollowing> fansList = userFollowingDao.getUserFans(userId);
+    final Set<Long> fansIdList = fansList.stream().map(UserFollowing::getUserId).collect(Collectors.toSet());
+
+    List<UserInfo> userInfoList = new ArrayList<>();
+    // 2. Get UserInfoList based on the userFollowingIds
+    if (fansIdList.size() > 0) {
+      userInfoList = userService.getUserInfoByUserIds(fansIdList);
+    }
+
+    final List<UserFollowing> followingList = userFollowingDao.getUserFollowings(userId);
+    for (final UserFollowing fan: fansList) {
+      for (final UserInfo userInfo: userInfoList) {
+        if (fan.getUserId().equals(userInfo.getUserId())) {
+          fan.setUserInfo(userInfo);
+          userInfo.setFollowed(false);
+        }
+      }
+
+      for (final UserFollowing userFollowing : followingList) {
+        if (userFollowing.getUserId().equals(fan.getUserId())) {
+          // it means user <- follow -> fan
+          fan.getUserInfo().setFollowed(true);
+        }
+      }
+    }
+
+    return fansList;
+
+  }
 }
