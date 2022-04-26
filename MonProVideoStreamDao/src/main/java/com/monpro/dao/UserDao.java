@@ -23,4 +23,6 @@ public interface UserDao {
   Integer updateUsers(final User user);
 
   List<UserInfo> getUserInfoByUserIds(Set<Long> userIds);
+
+  Integer updateUserInfo(UserInfo userInfo);
 }

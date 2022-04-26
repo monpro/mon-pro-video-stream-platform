@@ -4,6 +4,7 @@ package com.monpro.api;
 import com.monpro.api.support.UserSupport;
 import com.monpro.domain.User;
 import com.monpro.domain.JsonResponse;
+import com.monpro.domain.UserInfo;
 import com.monpro.service.UserService;
 import com.monpro.service.util.RSAUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,14 @@ public class UserApi {
     final Long currentUserId = userSupport.getCurrentUserId();
     user.setId(currentUserId);
     userService.updateUser(user);
+    return JsonResponse.success();
+  }
+
+  @PutMapping("/user-infos")
+  public JsonResponse<String> updateUserInfos(@RequestBody final UserInfo userInfo) {
+    final Long currentUserId = userSupport.getCurrentUserId();
+    userInfo.setUserId(currentUserId);
+    userService.updateUserInfo(userInfo);
     return JsonResponse.success();
   }
 }

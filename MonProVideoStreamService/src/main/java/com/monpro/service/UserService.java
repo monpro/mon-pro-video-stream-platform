@@ -105,4 +105,9 @@ public class UserService {
   public List<UserInfo> getUserInfoByUserIds(final Set<Long> userIds) {
     return userDao.getUserInfoByUserIds(userIds);
   }
+
+  public void updateUserInfo(final UserInfo userInfo) {
+    userInfo.setUpdateTime(new Date());
+    userDao.updateUserInfo(userInfo);
+  }
 }
