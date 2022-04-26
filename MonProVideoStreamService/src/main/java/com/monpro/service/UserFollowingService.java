@@ -136,4 +136,17 @@ public class UserFollowingService {
   public List<FollowingGroup> getUserFollowingGroups(final Long userId) {
     return followingGroupService.getUserFollowingGroups(userId);
   }
+
+  public List<UserInfo> checkFollowingStatus(List<UserInfo> userInfoList, Long currentUserId) {
+    final List<UserFollowing> userFollowingList = userFollowingDao.getUserFollowings(currentUserId);
+    for (final UserInfo userInfo: userInfoList) {
+      userInfo.setFollowed(false);
+      for (final UserFollowing userFollowing : userFollowingList) {
+        if (userFollowing.getFollowingId().equals(userInfo.getUserId())) {
+          userInfo.setFollowed(true);
+        }
+      }
+    }
+    return userInfoList;
+  }
 }

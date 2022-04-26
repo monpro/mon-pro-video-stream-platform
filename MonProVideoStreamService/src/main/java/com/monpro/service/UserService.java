@@ -1,5 +1,7 @@
 package com.monpro.service;
 
+import com.alibaba.fastjson.JSONObject;
+import com.monpro.domain.PageResult;
 import com.monpro.domain.User;
 import com.monpro.dao.UserDao;
 import com.monpro.domain.UserInfo;
@@ -14,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -109,5 +112,19 @@ public class UserService {
   public void updateUserInfo(final UserInfo userInfo) {
     userInfo.setUpdateTime(new Date());
     userDao.updateUserInfo(userInfo);
+  }
+
+  public PageResult<UserInfo> pageListUserInfos(final JSONObject params) {
+    final Integer num = params.getInteger("num");
+    final Integer size = params.getInteger("size");
+
+    params.put("start", (num - 1) * size);
+    params.put("limit", size);
+    final Integer total = userDao.pageCountUserInfos(params);
+    List<UserInfo> list = new ArrayList<>();
+    if (total > 0) {
+      list = userDao.pageListUserInfos(params);
+    }
+    return new PageResult<>(total, list);
   }
 }
