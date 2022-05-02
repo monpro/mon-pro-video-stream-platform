@@ -23,10 +23,8 @@ public class UserMomentApi {
   private UserSupport userSupport;
 
   @PostMapping("/user-moments")
-  public JsonResponse<String> addUserMoments(@RequestBody final UserMoment userMoment) {
-    log.info("try to get userId");
+  public JsonResponse<String> addUserMoments(@RequestBody final UserMoment userMoment) throws Exception {
     final Long userId = userSupport.getCurrentUserId();
-    log.info("get userId");
     userMoment.setUserId(userId);
     userMomentsService.addUserMoments(userMoment);
     return JsonResponse.success();
