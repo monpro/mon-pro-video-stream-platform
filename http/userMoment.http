@@ -1,0 +1,17 @@
+
+POST http://localhost:8080/user-moments
+Content-Type: application/json
+token: {{token}}
+
+{
+  "userId": 123456,
+  "type": 0,
+  "contentId": 768
+}
+
+> {%
+client.test("Test add user moments", function (){
+    client.log("Test add user moments");
+    client.log(response.body)
+});
+%}

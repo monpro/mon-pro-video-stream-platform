@@ -2,11 +2,13 @@ package com.monpro.api.support;
 
 import com.monpro.domain.exception.ConditionException;
 import com.monpro.service.util.TokenUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Component
+@Slf4j
 public class UserSupport {
 
   public Long getCurrentUserId() {
@@ -18,6 +20,5 @@ public class UserSupport {
     }
     return userId;
   }
-
 
 }

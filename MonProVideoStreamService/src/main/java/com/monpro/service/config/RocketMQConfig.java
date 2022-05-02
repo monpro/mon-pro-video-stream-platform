@@ -33,7 +33,7 @@ public class RocketMQConfig {
   public DefaultMQProducer momentsProducer() throws MQClientException {
     final DefaultMQProducer producer = new DefaultMQProducer(MOMENTS_GROUP);
     producer.setNamesrvAddr(nameServerAddress);
-    producer.start();
+//    producer.start();
     return producer;
   }
 
@@ -51,7 +51,7 @@ public class RocketMQConfig {
         return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
       }
     });
-    consumer.start();
+//    consumer.start();
     return consumer;
   }
 

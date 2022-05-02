@@ -10,12 +10,14 @@ import com.monpro.domain.UserInfo;
 import com.monpro.service.UserFollowingService;
 import com.monpro.service.UserService;
 import com.monpro.service.util.RSAUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@Slf4j
 public class UserApi {
 
   @Autowired
@@ -47,6 +49,8 @@ public class UserApi {
 
   @PostMapping("/login")
   public JsonResponse<String> login(@RequestBody final User user) {
+    log.info("user login");
+    System.out.println("test login");
     return new JsonResponse<>(userService.login(user));
   }
 
