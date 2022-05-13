@@ -1,6 +1,7 @@
 package com.monpro.service;
 
 import com.monpro.domain.auth.AuthRoleElementOperation;
+import com.monpro.domain.auth.AuthRoleMenu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +18,10 @@ public class AuthRoleService {
 
   public List<AuthRoleElementOperation> getRoleElementOperationsByRoleIds(List<Long> roleIdList) {
     return authRoleElementOperationService.getRoleElementOperationsByRoleIds(roleIdList);
+  }
+
+  public List<AuthRoleMenu> getAuthRoleMenusByRoleIds(List<Long> roleIdList) {
+    return authRoleMenuService.getAuthRoleMenusByRoleIds(roleIdList);
+
   }
 }
