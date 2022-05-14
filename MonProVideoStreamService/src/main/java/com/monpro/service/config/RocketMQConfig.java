@@ -79,7 +79,7 @@ public class RocketMQConfig {
         return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
       }
     });
-    consumer.start();
+//    consumer.start();
     return consumer;
   }
 

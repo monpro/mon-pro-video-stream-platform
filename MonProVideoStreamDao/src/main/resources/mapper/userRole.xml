@@ -3,7 +3,12 @@
 <mapper namespace="com.monpro.dao.UserRoleDao">
     <select id="getUserRoleByUserId" parameterType="java.lang.Long" resultType="com.monpro.domain.auth.UserRole">
         select
-            *
+            tur.id,
+            tur.userId,
+            tur.roleId,
+            tar.name roleName,
+            tar.code roleCode,
+            tur.createTime
         from t_user_role tur
         left join t_auth_role tar  on tur.roleId = tar.id
         where

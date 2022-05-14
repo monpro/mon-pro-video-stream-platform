@@ -14,7 +14,7 @@
         select
             arm.*,
             am.name,
-            am.code,
+            am.code
         from
             t_auth_role_menu arm
         left join t_auth_menu am on arm.menuId = am.id

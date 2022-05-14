@@ -1,0 +1,14 @@
+GET http://localhost:8080/user-authorities
+Accept: application/json
+// this token is fetched on the last test
+token: {{token}}
+
+> {%
+client.test("Test get user-authorities", function (){
+    client.log("Test get user-authorities");
+    client.assert(response.body.msg === "Success", "login successfully");
+    client.assert(response.body.data.roleElementOperationList.length > 0, "get roleElementOperationList successfully");
+    client.assert(response.body.data.roleMenuList.length > 0, "get roleMenuList successfully");
+
+});
+%}
